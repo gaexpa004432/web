@@ -8,7 +8,7 @@
 </head>
 <body>
 <%=request.getParameter("department_name") %>
-<form action="DeptInsertServ">
+<form action="DeptInsertFormServ" method="post">
 	id<input name="department_id"><br>
 	name<input name="department_name"><br>
 	<button>register</button>

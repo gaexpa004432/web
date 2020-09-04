@@ -16,7 +16,7 @@ public class DeptDAO {
 	public ArrayList<DeptVO> selectAll() {
 		DeptVO resultVO = null;
 		try {
-			String sql = "select * from departments";
+			String sql = "select distinct * from departments";
 			conn = ConnectionManager.getConnnect();
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();

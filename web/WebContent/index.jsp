@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@include file="/common/Header.jsp" %>
- <a href="dept/deptInserForm.jsp">부서등록</a>
+ <a href="dept/DeptInsertFormServ">부서등록</a>
 <a href="dept/DeptSelectAllServ">부서조회</a>
 <a href="member/MemberSelectServ">멤버조회</a>
-<a href="member/memberInsert.jsp">멤버등록</a> 
+<a href="member/memberInsert.jsp">멤버등록</a>
+<a href="member/Mymember">mymember</a>
 </body>
 </html>

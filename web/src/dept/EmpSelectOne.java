@@ -1,7 +1,8 @@
-package member;
+package dept;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,19 +10,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
 /**
- * Servlet implementation class MemberSelectServ
+ * Servlet implementation class EmpSelectOne
  */
-@WebServlet("/member/MemberSelectServ")
-public class MemberSelectServ extends HttpServlet {
+@WebServlet("/dept/empSelectOne")
+public class EmpSelectOne extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberSelectServ() {
+    public EmpSelectOne() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,11 +29,19 @@ public class MemberSelectServ extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MemberDAO dao = new MemberDAO();
-		ArrayList<MemberVO> list =dao.select();
-		
-		request.setAttribute("list",list);
-		request.getRequestDispatcher("memberSelectAll.jsp").forward(request, response);
+		EmpVO empvo = new EmpVO();
+		empvo.setEmployee_id(request.getParameter("employee_id"));
+		EmpVO dao = EmpDAO.getInstance().selectOne(empvo);
+		List<JobVO> jobList = JobDAO.getInstance().selectAll();
+		List<EmpVO> manager = EmpDAO.getInstance().selectAll();
+		ArrayList<DeptVO> depart = new ArrayList<DeptVO>();
+		DeptDAO dao1 = new DeptDAO();
+		depart = dao1.selectAll();
+		request.setAttribute("depart", depart);
+		request.setAttribute("managerList", manager);
+		request.setAttribute("joblist", jobList);
+		request.setAttribute("empone", dao);
+		request.getRequestDispatcher("employeeUpdate.jsp").forward(request, response);
 	}
 
 	/**

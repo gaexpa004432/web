@@ -1,23 +1,31 @@
-package dept;
+package member;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dept.EmpDAO;
+import dept.EmpVO;
+import dept.LocationDAO;
+
 /**
- * Servlet implementation class DeptInsertFormServ
+ * Servlet implementation class Mymember
  */
-@WebServlet("/dept/DeptInsertFormServ")
-public class DeptInsertFormServ extends HttpServlet {
+@WebServlet("/member/Mymember")
+public class Mymember extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeptInsertFormServ() {
+    public Mymember() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -25,21 +33,23 @@ public class DeptInsertFormServ extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+ 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("deptInsertForm.jsp").forward(request, response);
+		LocationDAO dao = new LocationDAO();
+		ArrayList<HashMap<String, String>> list = dao.selectAll(null);
+		request.setAttribute("locationList", list);
+		List<EmpVO> manager = EmpDAO.getInstance().selectAll();
+		request.setAttribute("managerList", manager);
+		
+		request.getRequestDispatcher("mymemberAll.jsp").forward(request, response);
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DeptDAO dao = new DeptDAO();
-		DeptVO deptvo = new DeptVO(Integer.parseInt(request.getParameter("department_id")),request.getParameter("department_name"));
-		response.setContentType("text/html; charset=UTF-8"); // 인코딩
-		dao.insert(deptvo);		
-
-		System.out.println("insert exe");
-		response.sendRedirect("DeptSelectAllServ");
+		
 	}
 
 }
