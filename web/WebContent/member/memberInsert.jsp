@@ -8,6 +8,7 @@
 </head>
 <body>
 <form method="post" action="MemberInsertServ">
+	
 	<div>
 	<P><label for="id">아이디 (숫자만 가능)</label> : <INPUT type="text" id="id" name="id" size="20" value="" required></P>
 	<P><label for="password">비밀번호</label> : <INPUT type="password" name="pw" id="password" size="20"></P>
